@@ -1,5 +1,6 @@
 ﻿import { Briefcase, Clock, Users } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { BASE_URL } from '../config';
 
 const Internships = () => {
   const [internships, setInternships] = useState([]);
@@ -10,8 +11,7 @@ const Internships = () => {
     const fetchInternships = async () => {
       setLoading(true);
       try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-        const res = await fetch(`${baseUrl}/api/announcements?type=internship&page=1&limit=20`, {
+        const res = await fetch(`${BASE_URL}/api/announcements?type=internship&page=1&limit=20`, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token') || ''}` }
         });
         const json = await res.json();

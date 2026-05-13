@@ -1,6 +1,7 @@
 import { Star, ThumbsUp, MessageSquare, Search, ArrowUpDown, PenSquare, Filter, Trash2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { BASE_URL } from '../config';
 
 const Reviews = () => {
   const { user } = useAuth();
@@ -51,8 +52,7 @@ const Reviews = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-        const response = await fetch(`${baseUrl}/api/categories`);
+        const response = await fetch(`${BASE_URL}/api/categories`);
         if (!response.ok) throw new Error('Failed to fetch categories');
         const data = await response.json();
         setCategories(Array.isArray(data.data) ? data.data : []);
@@ -68,8 +68,7 @@ const Reviews = () => {
     const fetchReviews = async () => {
       setLoading(true);
       try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-        let url = `${baseUrl}/api/comments?page=1&limit=10`;
+        let url = `${BASE_URL}/api/comments?page=1&limit=10`;
         
         if (uniFilter) url += `&university=${encodeURIComponent(uniFilter)}`;
         if (categoryId) url += `&category=${encodeURIComponent(categoryId)}`;
@@ -112,8 +111,7 @@ const Reviews = () => {
     
     setSubmitLoading(true);
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/comments`, {
+      const response = await fetch(`${BASE_URL}/api/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -145,8 +143,7 @@ const Reviews = () => {
     
     setReplyLoading(true);
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/comments/${commentId}/reply`, {
+      const response = await fetch(`${BASE_URL}/api/comments/${commentId}/reply`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -171,8 +168,7 @@ const Reviews = () => {
 
   const handleLike = async (commentId) => {
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/comments/${commentId}/like`, {
+      const response = await fetch(`${BASE_URL}/api/comments/${commentId}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -201,8 +197,8 @@ const Reviews = () => {
   const handleDeleteComment = async (commentId) => {
     if (!window.confirm("Are you sure you want to delete this comment?")) return;
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/comments/${commentId}`, {
+      const response = await fetch(`${BASE_URL}/api/comments/${commentId}`,
+        {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

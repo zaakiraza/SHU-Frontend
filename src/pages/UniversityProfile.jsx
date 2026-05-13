@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { MapPin, Link as LinkIcon, Building } from 'lucide-react';
+import { BASE_URL } from '../config';
 
 const UniversityProfile = () => {
   const { id } = useParams();
@@ -11,8 +12,7 @@ const UniversityProfile = () => {
   useEffect(() => {
     const fetchUniversity = async () => {
       try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-        const response = await fetch(`${baseUrl}/api/universities/${id}`, {
+        const response = await fetch(`${BASE_URL}/api/universities/${id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

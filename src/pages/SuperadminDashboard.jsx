@@ -1,5 +1,6 @@
 import { CheckCircle, XCircle, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { BASE_URL } from '../config';
 
 const SuperadminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -35,8 +36,7 @@ const SuperadminDashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/users`, {
+      const response = await fetch(`${BASE_URL}/api/users`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -59,8 +59,7 @@ const SuperadminDashboard = () => {
 
   const fetchUniversities = async () => {
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/universities?page=1&limit=10`, {
+      const response = await fetch(`${BASE_URL}/api/universities?page=1&limit=10`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -84,8 +83,7 @@ const SuperadminDashboard = () => {
 
   const fetchPendingUniversities = async () => {
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/universities/pending`, {
+      const response = await fetch(`${BASE_URL}/api/universities/pending`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -109,8 +107,7 @@ const SuperadminDashboard = () => {
 
   const fetchPendingAdmins = async () => {
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/admin/pending`, {
+      const response = await fetch(`${BASE_URL}/api/admin/pending`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -134,8 +131,7 @@ const SuperadminDashboard = () => {
   const fetchAnnouncements = async (societyId = '') => {
     setAnnouncementsLoading(true);
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      let url = `${baseUrl}/api/announcements?page=1&limit=10`;
+      let url = `${BASE_URL}/api/announcements?page=1&limit=10`;
       if (societyId) url += `&society=${encodeURIComponent(societyId)}`;
 
       const response = await fetch(url, {
@@ -162,8 +158,7 @@ const SuperadminDashboard = () => {
   const handleApproveUniversity = async (universityId) => {
   try {
     setPendingError('');
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-    const response = await fetch(`${baseUrl}/api/universities/${universityId}/approve`, {
+      const response = await fetch(`${BASE_URL}/api/universities/${universityId}/approve`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -189,8 +184,7 @@ const handleRejectUniversity = async (universityId) => {
 
   try {
     setPendingError('');
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-    const response = await fetch(`${baseUrl}/api/universities/${universityId}/reject`, {
+      const response = await fetch(`${BASE_URL}/api/universities/${universityId}/reject`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -213,8 +207,7 @@ const handleRejectUniversity = async (universityId) => {
 
 const fetchPendingCategories = async () => {
   try {
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-    const response = await fetch(`${baseUrl}/api/categories/pending`, {
+      const response = await fetch(`${BASE_URL}/api/categories/pending`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -234,8 +227,7 @@ const fetchPendingCategories = async () => {
 const handleApproveCategory = async (catId) => {
   if (!window.confirm('Approve this category?')) return;
   try {
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-    const response = await fetch(`${baseUrl}/api/categories/${catId}/approve`, {
+      const response = await fetch(`${BASE_URL}/api/categories/${catId}/approve`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
@@ -251,8 +243,7 @@ const handleApproveCategory = async (catId) => {
 const handleRejectCategory = async (catId) => {
   if (!window.confirm('Reject this category?')) return;
   try {
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-    const response = await fetch(`${baseUrl}/api/categories/${catId}/reject`, {
+      const response = await fetch(`${BASE_URL}/api/categories/${catId}/reject`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token') || ''}`
@@ -268,8 +259,7 @@ const handleRejectCategory = async (catId) => {
 const handleDeleteAnnouncement = async (announcementId) => {
   if (!window.confirm('Are you sure you want to delete this announcement?')) return;
   try {
-    const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-    const response = await fetch(`${baseUrl}/api/announcements/${announcementId}`, {
+      const response = await fetch(`${BASE_URL}/api/announcements/${announcementId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -383,8 +373,7 @@ return (
                           style={{ background: 'rgba(72, 187, 120, 0.2)', color: '#48BB78', padding: '6px 12px', fontSize: '12px' }}
                           onClick={async () => {
                             try {
-                              const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-                              const r = await fetch(`${baseUrl}/api/societies/${soc._id || soc.id}/approve`, {
+                              const r = await fetch(`${BASE_URL}/api/societies/${soc._id || soc.id}/approve`, {
                                 method: 'PATCH',
                                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token') || ''}` }
                               });
@@ -402,8 +391,7 @@ return (
                             const reason = window.prompt('Reason for rejection:');
                             if (reason === null) return;
                             try {
-                              const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-                              const r = await fetch(`${baseUrl}/api/societies/${soc._id || soc.id}/reject`, {
+                              const r = await fetch(`${BASE_URL}/api/societies/${soc._id || soc.id}/reject`, {
                                 method: 'PATCH',
                                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token') || ''}` },
                                 body: JSON.stringify({ reason: reason || 'No reason provided' })
@@ -548,9 +536,8 @@ return (
             className="btn btn-primary"
             style={{ padding: '8px 20px', fontSize: '14px' }}
             onClick={() => {
-              const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
               setAnnouncementsLoading(true);
-              let url = `${baseUrl}/api/announcements?page=1&limit=10`;
+              let url = `${BASE_URL}/api/announcements?page=1&limit=10`;
               if (societyFilter) url += `&society=${encodeURIComponent(societyFilter)}`;
               fetch(url, {
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('token') || ''}` }

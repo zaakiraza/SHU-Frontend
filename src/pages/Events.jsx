@@ -1,6 +1,7 @@
 ﻿import { Calendar as CalendarIcon, Users } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { BASE_URL } from '../config';
 
 const Events = () => {
   const { user } = useAuth();
@@ -12,8 +13,7 @@ const Events = () => {
     const fetchEvents = async () => {
       setLoading(true);
       try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-        const res = await fetch(`${baseUrl}/api/announcements?type=event&page=1&limit=20`, {
+        const res = await fetch(`${BASE_URL}/api/announcements?type=event&page=1&limit=20`, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token') || ''}` }
         });
         const json = await res.json();

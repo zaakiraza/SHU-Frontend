@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { BASE_URL } from '../config';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -16,8 +17,7 @@ const Register = () => {
   useEffect(() => {
     const fetchUniversities = async () => {
       try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-        const res = await fetch(`${baseUrl}/api/universities?page=1&limit=100`);
+        const res = await fetch(`${BASE_URL}/api/universities?page=1&limit=100`);
         const json = await res.json();
         const list = json.data?.universities || json.data || [];
         setUniversities(Array.isArray(list) ? list : []);
@@ -39,9 +39,7 @@ const Register = () => {
     setError('');
 
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      
-      const response = await fetch(`${baseUrl}/api/auth/register`, {
+      const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

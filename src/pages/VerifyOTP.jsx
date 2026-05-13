@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { BASE_URL } from '../config';
 
 const VerifyOTP = () => {
   const [otp, setOtp] = useState('');
@@ -23,9 +24,7 @@ const VerifyOTP = () => {
     setError('');
 
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      
-      const response = await fetch(`${baseUrl}/api/auth/verify-otp`, {
+      const response = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,9 +59,7 @@ const VerifyOTP = () => {
     setMessage('');
 
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      
-      const response = await fetch(`${baseUrl}/api/auth/resend-otp`, {
+      const response = await fetch(`${BASE_URL}/api/auth/resend-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

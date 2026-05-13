@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Users, Calendar, Mail, ExternalLink, ArrowLeft } from 'lucide-react';
+import { BASE_URL } from '../config';
 
 const SocietyProfile = () => {
   const { id } = useParams();
@@ -11,8 +12,7 @@ const SocietyProfile = () => {
   useEffect(() => {
     const fetchSociety = async () => {
       try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-        const response = await fetch(`${baseUrl}/api/societies/${id}`, {
+        const response = await fetch(`${BASE_URL}/api/societies/${id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

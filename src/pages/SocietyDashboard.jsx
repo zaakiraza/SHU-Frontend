@@ -1,6 +1,7 @@
 import { useAuth } from '../context/AuthContext';
 import { useState } from 'react';
 import { Megaphone, Globe, Lock, Trash2 } from 'lucide-react';
+import { BASE_URL } from '../config';
 
 const inputStyle = { width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)', color: 'var(--text-primary)', outline: 'none', fontFamily: 'Inter' };
 
@@ -27,8 +28,7 @@ const SocietyDashboard = () => {
     setError('');
 
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/announcements`, {
+      const response = await fetch(`${BASE_URL}/api/announcements`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,8 +64,7 @@ const SocietyDashboard = () => {
   const handleDeleteAnnouncement = async (announcementId) => {
     if (!window.confirm('Delete this announcement?')) return;
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/announcements/${announcementId}`, {
+      const response = await fetch(`${BASE_URL}/api/announcements/${announcementId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import { useAuth } from '../context/AuthContext';
 import { Plus, Building, Megaphone, Globe, Lock, Users } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { BASE_URL } from '../config';
 
 const UniAdminDashboard = () => {
   const { user } = useAuth();
@@ -62,8 +63,7 @@ const UniAdminDashboard = () => {
     setSocietiesLoading(true);
     setSocietiesError('');
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      let url = `${baseUrl}/api/societies?page=1&limit=10`;
+      let url = `${BASE_URL}/api/societies?page=1&limit=10`;
       if (uniId) url += `&university=${encodeURIComponent(uniId)}`;
 
       const response = await fetch(url, {
@@ -89,8 +89,7 @@ const UniAdminDashboard = () => {
     setPendingSocietiesLoading(true);
     setPendingSocietiesError('');
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/societies/pending`, {
+      const response = await fetch(`${BASE_URL}/api/societies/pending`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -115,8 +114,8 @@ const UniAdminDashboard = () => {
     setSocSuccess('');
 
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/societies`, {
+      const response = await fetch(`${BASE_URL}/api/societies`,
+        {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -151,8 +150,7 @@ const UniAdminDashboard = () => {
   const handleApproveSociety = async (societyId) => {
     try {
       setPendingSocietiesError('');
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/societies/${societyId}/approve`, {
+      const response = await fetch(`${BASE_URL}/api/societies/${societyId}/approve`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -179,8 +177,7 @@ const UniAdminDashboard = () => {
 
     try {
       setPendingSocietiesError('');
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/societies/${societyId}/reject`, {
+      const response = await fetch(`${BASE_URL}/api/societies/${societyId}/reject`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -208,8 +205,8 @@ const UniAdminDashboard = () => {
     setCatError('');
     setCatSuccess('');
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/categories`, {
+      const response = await fetch(`${BASE_URL}/api/categories`,
+        {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -234,8 +231,7 @@ const UniAdminDashboard = () => {
 
     try {
       setSocietiesError('');
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/societies/${societyId}/assign-admin`, {
+      const response = await fetch(`${BASE_URL}/api/societies/${societyId}/assign-admin`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -263,8 +259,7 @@ const UniAdminDashboard = () => {
     setAnnSuccess('');
 
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/announcements`, {
+      const response = await fetch(`${BASE_URL}/api/announcements`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -303,8 +298,8 @@ const UniAdminDashboard = () => {
     setUniSuccess('');
 
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-      const response = await fetch(`${baseUrl}/api/universities`, {
+      const response = await fetch(`${BASE_URL}/api/universities`,
+        {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
